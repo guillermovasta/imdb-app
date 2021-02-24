@@ -1,2 +1,3 @@
-import './components/searchField.js'
-import './styles.scss'
+import './components/searchField'
+
+import './styles/index.scss'
