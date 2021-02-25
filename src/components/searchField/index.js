@@ -1,15 +1,22 @@
 import { MDCTextField } from '@material/textfield'
 import debounce from 'lodash/debounce'
 import events from '../../constants/events'
+import eventBus from '../../core/eventBus'
 
 const template = document.createElement('template')
 template.innerHTML = `
-  <label class="mdc-text-field mdc-text-field--filled">
-    <span class="mdc-text-field__ripple"></span>
-    <span class="mdc-floating-label" id="my-label-id">Search for a title</span>
-    <input is="search-field" class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
-    <span class="mdc-line-ripple"></span>
-  </label>
+  <div class="mdc-layout-grid">
+    <div class="mdc-layout-grid__inner">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <label class="mdc-text-field mdc-text-field--filled mdc-text-field--full-width">
+          <span class="mdc-text-field__ripple"></span>
+          <span class="mdc-floating-label" id="my-label-id">Search for a title</span>
+          <input id="search-field" is="search-field" class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+          <span class="mdc-line-ripple"></span>
+        </label>
+      </div>
+    </div>
+  </div>
 `
 
 class SearchField extends HTMLElement {
@@ -30,9 +37,8 @@ class SearchField extends HTMLElement {
 
   handleInputChange = debounce((event) => {
     const searchValue = event.target.value
-    console.log(searchValue)
-    this.dispatchEvent(new CustomEvent(events.search, { searchValue }))
-  }, 300)
+    eventBus.fire(events.search, searchValue)
+  }, 400)
 }
 
 customElements.define('search-field', SearchField)
