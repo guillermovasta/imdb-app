@@ -1,18 +1,18 @@
-class Card extends HTMLElement {
-  static get observedAttributes() {
-    return ['title', 'image', 'id']
-  }
-
+class MovieCard extends HTMLElement {
   constructor() {
     super()
   }
 
   get title() {
-    return this.getAttribute('title')
+    const title = this.getAttribute('title')
+    return title === 'undefined' ? 'Comming soon' : title
   }
 
   get image() {
-    return this.getAttribute('image')
+    const imageUrl = this.getAttribute('image')
+    return imageUrl === 'undefined'
+      ? 'https://via.placeholder.com/350'
+      : imageUrl
   }
 
   get id() {
@@ -26,7 +26,7 @@ class Card extends HTMLElement {
           background-image: url("${this.image}");
         }
       </style>
-      <div class="mdc-card movie-card">
+      <div class="movie-card mdc-card">
         <div class="movie-card__media movie-card__media--${this.id} mdc-card__media mdc-card__media--16-9">
         </div>
         <div class="movie-card__content">
@@ -37,4 +37,4 @@ class Card extends HTMLElement {
   }
 }
 
-customElements.define('movie-card', Card)
+customElements.define('movie-card', MovieCard)

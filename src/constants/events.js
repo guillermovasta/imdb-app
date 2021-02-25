@@ -1,5 +1,7 @@
 const search = 'search'
+const pagination = 'pagination'
 
 export default {
-  search
+  search,
+  pagination
 }
