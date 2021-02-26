@@ -17,6 +17,10 @@ class PaginationButton extends HTMLButtonElement {
   connectedCallback() {
     this.addEventListener('click', this.handleClick)
   }
+
+  disconnectedCallback() {
+    this.removeEventListener('click', this.handleClick)
+  }
 }
 
 customElements.define('pagination-button', PaginationButton, {

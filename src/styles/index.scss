@@ -1,6 +1,6 @@
 @use "@material/layout-grid/mdc-layout-grid";
 
-@import "./fonts";
-@import "../components/searchField/styles";
-@import "../components/movieCard/styles";
-@import "../components/paginationButtons/styles";
+@import "./_fonts";
+@import "../components/searchField/_styles";
+@import "../components/movieCard/_styles";
+@import "../components/paginationButtons/_styles";

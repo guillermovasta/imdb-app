@@ -1,5 +1,6 @@
 import { MDCTextField } from '@material/textfield'
 import debounce from 'lodash/debounce'
+
 import events from '../../constants/events'
 import eventBus from '../../core/eventBus'
 
@@ -11,7 +12,11 @@ template.innerHTML = `
         <label class="mdc-text-field mdc-text-field--filled mdc-text-field--full-width">
           <span class="mdc-text-field__ripple"></span>
           <span class="mdc-floating-label" id="my-label-id">Search for a title</span>
-          <input id="search-field" is="search-field" class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+          <input aria-labelledby="my-label-id"
+                 class="mdc-text-field__input" 
+                 id="search-field" 
+                 is="search-field" 
+                 type="text">
           <span class="mdc-line-ripple"></span>
         </label>
       </div>
@@ -28,7 +33,9 @@ class SearchField extends HTMLElement {
     this.appendChild(template.content.cloneNode(true))
     this.input = this.querySelector('input')
     this.input.addEventListener('input', this.handleInputChange)
-    this.MDC = new MDCTextField(document.querySelector('.mdc-text-field'))
+    this.MDCTextField = new MDCTextField(
+      document.querySelector('.mdc-text-field')
+    )
   }
 
   disconnectedCallback() {
@@ -36,8 +43,7 @@ class SearchField extends HTMLElement {
   }
 
   handleInputChange = debounce((event) => {
-    const searchValue = event.target.value
-    eventBus.fire(events.search, searchValue)
+    eventBus.fire(events.search, event.target.value)
   }, 400)
 }
 

@@ -1,6 +1,6 @@
 import { RAPIDAPI_HOST, RAPIDAPI_KEY } from '../constants/api'
 
-const find = async (q) => {
+const findMovies = async (q) => {
   const response = await fetch(`https://${RAPIDAPI_HOST}/title/find?q=${q}`, {
     method: 'get',
     headers: {
@@ -12,4 +12,4 @@ const find = async (q) => {
   return result
 }
 
-export default find
+export default findMovies

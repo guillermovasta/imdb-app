@@ -1,25 +1,35 @@
 class PaginationButtons extends HTMLElement {
+  constructor() {
+    super()
+  }
+
   get pages() {
     return +this.getAttribute('pages')
   }
 
-  get selected() {
-    return +this.getAttribute('selected')
+  get selectedPage() {
+    return +this.getAttribute('selected-page')
   }
 
   getButtonsHTML() {
     let html = ''
     for (let i = 1; i <= this.pages; i++) {
       html = html.concat(`
-        <button class="pagination-button ${
-          i === this.selected ? 'pagination-button--selected' : ''
-        }" is="pagination-button" page="${i}">${i}</button>
+        <button is="pagination-button" 
+                class="pagination-button ${
+                  i === this.selectedPage ? 'pagination-button--selected' : ''
+                }" 
+                page="${i}">${i}</button>
       `)
     }
     return html
   }
 
   connectedCallback() {
+    this.render()
+  }
+
+  render() {
     this.innerHTML = `
       <div class="mdc-layout-grid">
         <div class="mdc-layout-grid__inner">

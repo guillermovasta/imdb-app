@@ -4,15 +4,11 @@ class MovieCard extends HTMLElement {
   }
 
   get title() {
-    const title = this.getAttribute('title')
-    return title === 'undefined' ? 'Comming soon' : title
+    return this.getAttribute('title')
   }
 
-  get image() {
-    const imageUrl = this.getAttribute('image')
-    return imageUrl === 'undefined'
-      ? 'https://via.placeholder.com/350'
-      : imageUrl
+  get imageURL() {
+    return this.getAttribute('image-url')
   }
 
   get id() {
@@ -20,10 +16,14 @@ class MovieCard extends HTMLElement {
   }
 
   connectedCallback() {
+    this.render()
+  }
+
+  render() {
     this.innerHTML = `
       <style>
         .movie-card__media--${this.id} {
-          background-image: url("${this.image}");
+          background-image: url("${this.imageURL}");
         }
       </style>
       <div class="movie-card mdc-card">

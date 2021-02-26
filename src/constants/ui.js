@@ -1,1 +1,3 @@
-export const pageSize = 3
+export const pagination = {
+  pageSize: 3
+}
