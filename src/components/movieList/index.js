@@ -47,7 +47,11 @@ class MovieList extends HTMLElement {
               (movie, key) => `
                 <div class="mdc-layout-grid__cell">
                   <movie-card id="${key}"
-                              image-url="${movie.image.url}" 
+                              image-url="${
+                                movie.image
+                                  ? movie.image.url
+                                  : 'https://via.placeholder.com/350'
+                              }" 
                               title="${movie.title}"></movie-card>
                 </div>
               `
