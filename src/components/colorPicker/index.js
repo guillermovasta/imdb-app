@@ -60,7 +60,6 @@ class ColorPicker extends HTMLElement {
         values[2] = this.percentify(values[2])
       }
       const bgColor = `${format}(${values[0]}, ${values[1]}, ${values[2]}, ${values[3]})`
-      console.log(bgColor)
       preview.style.backgroundColor = bgColor
       eventBus.fire(events.colorPicker, { bgColor })
     }
