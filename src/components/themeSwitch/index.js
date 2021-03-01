@@ -1,4 +1,5 @@
 import { MDCSwitch } from '@material/switch'
+
 import events from '../../constants/events'
 import eventBus from '../../core/eventBus'
 
@@ -30,12 +31,17 @@ class ThemeSwitch extends HTMLElement {
     this.on = true
     this.input = this.querySelector('input')
     this.input.addEventListener('change', this.handleInputChange)
-    const switchControl = new MDCSwitch(document.querySelector('.mdc-switch'))
+    this.MDCSwitch = new MDCSwitch(document.querySelector('.mdc-switch'))
+  }
+
+  disconnectedCallback() {
+    this.input.removeEventListener('change', this.handleInputChange)
   }
 
   handleInputChange = () => {
-    this.on = !this.on
-    eventBus.fire(events.theme, { on: !this.on })
+    const { on } = this
+    this.on = !on
+    eventBus.fire(events.theme, { on })
   }
 }
 

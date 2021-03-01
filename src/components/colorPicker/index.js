@@ -27,7 +27,7 @@ const parameters = {
 class ColorPicker extends HTMLElement {
   constructor() {
     super()
-    this.format = formats.hsla
+    this.format = formats.rgba
     this.values = ['0', '0', '0', '0']
     this.createGrid()
     this.createPreview()
@@ -45,16 +45,22 @@ class ColorPicker extends HTMLElement {
     this.render()
   }
 
+  percentify(value) {
+    if (value.includes('%')) return value
+    return `${value}%`
+  }
+
   handleInputChange = (event) => {
     const { dataset, value } = event.target
     const { values, preview, format } = this
     values[dataset.key] = value
     if (values.every((value) => !!value)) {
-      // TODO: Create a fn that returns the background color
-      let bgColor = `${format}(${values[0]}, ${values[1]}, ${values[2]}, ${values[3]})`
       if (format === formats.hsla) {
-        bgColor = `${format}(${values[0]}, ${values[1]}%, ${values[2]}%, ${values[3]})`
+        values[1] = this.percentify(values[1])
+        values[2] = this.percentify(values[2])
       }
+      const bgColor = `${format}(${values[0]}, ${values[1]}, ${values[2]}, ${values[3]})`
+      console.log(bgColor)
       preview.style.backgroundColor = bgColor
       eventBus.fire(events.colorPicker, { bgColor })
     }
