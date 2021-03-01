@@ -1,3 +1,6 @@
+import eventBus from '../../core/eventBus'
+import events from '../../constants/events'
+
 class PaginationButtons extends HTMLElement {
   constructor() {
     super()
@@ -27,6 +30,17 @@ class PaginationButtons extends HTMLElement {
 
   connectedCallback() {
     this.render()
+    eventBus.register(events.colorPicker, (event) => {
+      this.bgColor = event.detail.bgColor
+    })
+    eventBus.register(events.theme, (event) => {
+      const btns = this.querySelectorAll('button')
+      btns.forEach((button) => {
+        button.style.backgroundColor = event.detail.on
+          ? this.bgColor
+          : 'lightblue'
+      })
+    })
   }
 
   render() {

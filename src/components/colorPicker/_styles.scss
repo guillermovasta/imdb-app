@@ -1,6 +1,21 @@
 // @use "@material/slider/styles";
 
+.mdc-layout-grid---color-picker {
+  label {
+    display: inline-block;
+    min-width: 100px;
+    text-transform: capitalize;
+  }
+
+  select {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+}
+
 .color-picker__preview {
-  height: 200px;
-  width: 200px;
+  background-color: black;
+  height: 50px;
+  margin-bottom: 10px;
+  width: 50px;
 }

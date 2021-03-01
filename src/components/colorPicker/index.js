@@ -27,7 +27,7 @@ const parameters = {
 class ColorPicker extends HTMLElement {
   constructor() {
     super()
-    this.format = formats.rgba
+    this.format = formats.hsla
     this.values = ['0', '0', '0', '0']
     this.createGrid()
     this.createPreview()
@@ -50,12 +50,13 @@ class ColorPicker extends HTMLElement {
     const { values, preview, format } = this
     values[dataset.key] = value
     if (values.every((value) => !!value)) {
+      // TODO: Create a fn that returns the background color
       let bgColor = `${format}(${values[0]}, ${values[1]}, ${values[2]}, ${values[3]})`
       if (format === formats.hsla) {
-        bgColor = `hsla(${values[0]}, ${values[1]}%, ${values[2]}%, ${values[3]})`
+        bgColor = `${format}(${values[0]}, ${values[1]}%, ${values[2]}%, ${values[3]})`
       }
       preview.style.backgroundColor = bgColor
-      eventBus.fire(events.ui.theme)
+      eventBus.fire(events.colorPicker, { bgColor })
     }
   }
 
@@ -83,7 +84,7 @@ class ColorPicker extends HTMLElement {
 
   createGrid() {
     this.innerHTML = `
-      <div class="mdc-layout-grid">
+      <div class="mdc-layout-grid mdc-layout-grid---color-picker">
         <div class="mdc-layout-grid__inner">
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
           </div>
@@ -100,7 +101,7 @@ class ColorPicker extends HTMLElement {
 
   createSelect() {
     this.select = document.createElement('select')
-    Object.keys(formats).map((format) => {
+    Object.keys(formats).map((format, key) => {
       const option = document.createElement('option')
       option.value = format
       option.text = format
@@ -150,13 +151,14 @@ class ColorPicker extends HTMLElement {
 
   render() {
     const { controls, format, container } = this
-    this.controls.forEach((control, key) => {
+    controls.forEach((control, key) => {
       const input = control.querySelector('input')
       input.dataset.key = key
       const name = parameters[format][key][0]
       input.name = name
       if (name === 'alpha') {
         input.step = 0.1
+        input.value = 1
       }
       control.querySelector('label').innerHTML = name
       input.max = parameters[format][key][1]

@@ -29,6 +29,7 @@
     "@material/card": "^10.0.0",
     "@material/layout-grid": "^10.0.0",
     "@material/slider": "^10.0.0",
+    "@material/switch": "^10.0.0",
     "@material/textfield": "^10.0.0",
     "lodash.debounce": "^4.0.8"
   }

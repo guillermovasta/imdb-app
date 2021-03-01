@@ -1,9 +1,11 @@
 const search = 'search-term:change'
 const pagination = 'pagination-page:change'
-const ui = 'ui-theme:change'
+const theme = 'theme:change'
+const colorPicker = 'color-picker:change'
 
 export default {
   search,
   pagination,
-  ui
+  theme,
+  colorPicker
 }
